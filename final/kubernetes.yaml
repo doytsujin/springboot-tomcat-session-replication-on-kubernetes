@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hazelcast-tomcatsessionreplication-statefulset
+  labels:
+    app: hazelcast-tomcatsessionreplication
+spec:
+  replicas: 2
+  serviceName: hazelcast-tomcatsessionreplication-service
+  selector:
+    matchLabels:
+      app: hazelcast-tomcatsessionreplication
+  template:
+    metadata:
+      labels:
+        app: hazelcast-tomcatsessionreplication
+    spec:
+      containers:
+        - name: hazelcast-tomcatsessionreplication-container
+          image: hazelcast-tomcatsessionreplication-demo:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 5701
+          - containerPort: 8080
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hazelcast-tomcatsessionreplication-service
+spec:
+  type: NodePort
+  selector:
+    app: hazelcast-tomcatsessionreplication
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 31000
