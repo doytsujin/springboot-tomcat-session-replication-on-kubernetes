@@ -176,9 +176,9 @@ public WebServerFactoryCustomizer<TomcatServletWebServerFactory> customizeTomcat
 
 The first bean creates a Hazelcast `Config` object to configure Hazelcast members. We enable the k8s config for discovery. The second bean creates the Hazelcast member using the `hazelcastConfig` bean. The third one customizes Tomcat instance in Spring Boot to use Hazelcast Tomcat Session Manager. Please note that the Hazelcast instance name for `HazelcastSessionManager` object and the instance name for Hazelcast config bean should be the same. Otherwise, `HazelcastSessionManager` wouldn't access the running Hazelcast instance.
 
-Our application with session replication is now ready to go. We don't need to change anything else because we are already using HTTP sessions to store data. 
+Our application with session replication is now ready to go. We do not need to change anything else because we are already using HTTP sessions to store data. 
 
-### Running the App with Tomcat Session Replication in Kubernetes Environment
+### Running the App with Tomcat Session Replication in Kubernetes Environment 
 
 Before deploying our updated application on k8s, you should create a `rbac.yaml` file which you can find it [here](https://github.com/hazelcast-guides/springboot-tomcat-session-replication-on-kubernetes/blob/master/final/rbac.yaml). This is the role-based access control (RBAC) configuration which is used to give access to the Kubernetes Master API from pods. Hazelcast requires read access to auto-discover other Hazelcast members and form Hazelcast cluster. After creating/downloading the file, apply it using the command below:
 
