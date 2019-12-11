@@ -20,9 +20,9 @@
     <properties>
         <java.version>1.8</java.version>
         <docker.image.prefix>springio</docker.image.prefix>
-        <version.hazelcast>3.12.3</version.hazelcast>
-        <version.hazelcast-kubernetes>1.5.1</version.hazelcast-kubernetes>
-        <version.dockerfile-maven-plugin>1.4.12</version.dockerfile-maven-plugin>
+        <hazelcast.version>3.12.3</hazelcast.version>
+        <hazelcast-kubernetes.version>1.5.1</hazelcast-kubernetes.version>
+        <hazelcast-tomcat-sessionmanager.version>1.1.4</hazelcast-tomcat-sessionmanager.version>
     </properties>
 
     <build>
@@ -56,15 +56,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${version.dockerfile-maven-plugin}</version>
-                <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
@@ -81,17 +72,17 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-tomcat85-sessionmanager</artifactId>
-            <version>1.1.4</version>
+            <version>${hazelcast-tomcat-sessionmanager.version}</version>
         </dependency>
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-            <version>${version.hazelcast}</version>
+            <version>${hazelcast.version}</version>
         </dependency>
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast-kubernetes</artifactId>
-            <version>${version.hazelcast-kubernetes}</version>
+            <version>${hazelcast-kubernetes.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
